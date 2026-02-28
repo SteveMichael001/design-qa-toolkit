@@ -6,11 +6,9 @@
 
 ## Why this exists
 
-My fiancée is a graphic designer. She told me design QA is a pain — verifying every color code, font, spacing value, and copy error before anything goes to a client takes forever and it's not the interesting part of the job.
+Design QA is tedious. Verifying hex values, fonts, spacing, and copy errors before client delivery takes time that could go toward actual design work.
 
-So I built this. It connects Claude to your Figma files directly so it can check actual file data — not screenshots. Screenshots don't tell you if a hex value is wrong. The Figma MCP does.
-
-Not a designer. Sharing it anyway.
+This connects Claude directly to your Figma files via the Figma MCP — so it checks real file data, not screenshots. Screenshots can't tell you if a hex value is off by one digit. File data can.
 
 ---
 
