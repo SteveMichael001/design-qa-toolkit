@@ -23,6 +23,7 @@ I'm sharing it publicly because I figured other designers might find it useful. 
 | File | What it does |
 |------|-------------|
 | `SETUP.md` | How to get started, from zero — tools, accounts, first steps |
+| `PLATFORM-CONNECTIONS.md` | How to connect Figma and Adobe directly to Claude — no more manual exports |
 | `checklists/copy-qa.md` | Line-by-line copy review checklist |
 | `checklists/design-qa.md` | Full design QA — typography, layout, brand, photography |
 | `checklists/creative-director-review.md` | Strategic review layer — brief alignment, client experience, creative standards |
