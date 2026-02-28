@@ -1,120 +1,158 @@
 # Setup Guide
 
-**Getting started with AI-assisted design QA — no technical background required.**
+**Getting Claude connected to your Figma files — step by step.**
 
-This guide assumes you've never used an AI tool for design work before. If you're already comfortable with ChatGPT or Claude, skip to [Step 3](#step-3-run-your-first-qa-session).
-
----
-
-## What you'll need
-
-- A free [ChatGPT account](https://chat.openai.com) **or** a free [Claude account](https://claude.ai)
-- The project you want to QA (copy doc, design file, exported PDF, or screenshots)
-- About 10–15 minutes for your first session
-
-That's it. No plugins, no integrations, no technical setup.
+This takes about 30 minutes the first time. After that, QA is a prompt away.
 
 ---
 
-## Step 1: Pick your AI tool
+## What you're setting up
 
-Both work. Here's the short version:
+You're connecting two tools:
 
-| | ChatGPT | Claude |
-|--|---------|--------|
-| Free tier | Yes | Yes |
-| Good at copy/grammar | ✅ | ✅ |
-| Good at following long checklists | ✅ | ✅✅ |
-| Can analyze images | Yes (GPT-4o) | Yes (Claude 3+) |
-| Best for | General use | Long documents, nuanced copy |
+1. **Claude Desktop** — the desktop version of Claude AI (different from the browser version at claude.ai — this one supports file and tool connections)
+2. **Figma MCP** — a bridge that lets Claude read your actual Figma file data: text, colors, fonts, spacing, components
 
-**Recommendation:** Start with whichever you already have. They're both good enough.
+Once connected, Claude has access to the real data inside your Figma files — not screenshots. That's what makes the QA thorough enough to actually be useful.
 
 ---
 
-## Step 2: Understand how to use the prompts
+## Before you start
 
-The `/prompts` folder contains pre-written instructions you paste into the AI chat. Think of them as a briefing you give an assistant before handing off a task.
+You'll need:
 
-**How it works:**
-1. Open the prompt file (e.g., `prompts/copy-review-prompt.md`)
-2. Copy the entire prompt
-3. Paste it into a new ChatGPT or Claude conversation
-4. Then paste your copy (or upload your file/screenshot) in the same message
-5. Send it and read the response
-
-The AI will work through the checklist items systematically and flag anything that needs attention.
+- **Figma desktop app** (not the browser version) — the MCP server runs through the desktop app
+- **A Figma paid plan** — Dev Mode is required for the MCP, and Dev Mode requires a paid seat
+- **A Claude account** — free tier works for getting started (claude.ai)
 
 ---
 
-## Step 3: Run your first QA session
+## Step 1: Download Claude Desktop
 
-**For copy review:**
+Claude Desktop is the version of Claude that supports MCP connections. The browser version (claude.ai) does not.
 
-1. Open `prompts/copy-review-prompt.md`
-2. Copy the prompt
-3. Open a new conversation in ChatGPT or Claude
-4. Paste the prompt, then on a new line paste your copy document
-5. Hit send
-
-**For design review:**
-
-Design QA is partially visual, so you'll need to either:
-- Export a PDF and upload it, or
-- Take screenshots of your key screens/pages and upload them
-
-The AI can review text content directly from files, and can assess visual layouts from screenshots.
+1. Go to **https://claude.ai/download**
+2. Download and install the Mac or Windows app
+3. Sign in with your Claude account (or create a free one)
 
 ---
 
-## Step 4: Use the checklists alongside the AI
+## Step 2: Enable Dev Mode MCP in Figma
 
-The checklists in `/checklists` are your reference layer — the things to check *even when* the AI has reviewed the work.
+1. Open the **Figma desktop app** (not the browser)
+2. Update to the latest version if prompted
+3. Go to **Figma menu → Preferences** (Mac: Figma → Preferences, Windows: Edit → Preferences)
+4. Find **"Dev Mode MCP Server"** and toggle it on
+5. You'll see a confirmation that the local server is running at `http://127.0.0.1:3845/sse`
 
-Items marked **👁️ Needs human judgment** are things the AI will flag but can't fully evaluate. You make the call on those.
-
-**Workflow suggestion:**
-1. Run the AI prompt first → get a pass on all the mechanical stuff
-2. Review the AI's output
-3. Walk through the checklist manually for the human-judgment items
-4. Fix anything flagged
-5. Run final handoff checklist before delivery
+> **Don't see Dev Mode in Preferences?** You may need to enable Dev Mode on a specific file first. Open a Figma file, click the toggle in the top right to switch to Dev Mode view, then check Preferences again.
 
 ---
 
-## Step 5: Build it into your process
+## Step 3: Connect Figma MCP to Claude Desktop
 
-The system works best when it's not an afterthought. Two places to slot it in:
+Claude Desktop is configured by editing a JSON file. This sounds technical but it's just opening a file and pasting in a few lines.
 
-**Before creative review:** Run copy QA before you send work to a creative director or for internal review. Catch errors before they become comments.
+**On Mac:**
 
-**Before client delivery:** Run the full handoff checklist before anything goes out the door. Every time.
+1. Open **Terminal** (search "Terminal" in Spotlight)
+2. Type this command and press Enter:
+   ```
+   open ~/Library/Application\ Support/Claude/
+   ```
+3. You'll see a Finder window open. Look for a file called `claude_desktop_config.json`
+   - If it doesn't exist, create a new file with that exact name
+4. Open the file in a text editor (TextEdit works)
+5. Replace the entire contents with:
+   ```json
+   {
+     "mcpServers": {
+       "figma": {
+         "url": "http://127.0.0.1:3845/sse"
+       }
+     }
+   }
+   ```
+6. Save the file
+
+**On Windows:**
+
+1. Press `Windows + R`, type `%APPDATA%\Claude\` and press Enter
+2. Follow the same steps 3–6 above
 
 ---
 
-## Tips from actual use
+## Step 4: Restart Claude Desktop
 
-- **Be specific with AI.** If you tell it "check this copy," it gives you a generic response. If you paste the full prompt first, it follows the checklist systematically.
+Fully quit Claude Desktop and reopen it. The MCP connection only loads on startup.
 
-- **AI can't read brand guidelines it doesn't have.** If brand consistency is critical, paste relevant sections of the brand guide into the same conversation before asking for a review.
+To verify it worked:
+1. Open Claude Desktop
+2. Look for a small **plug icon** or **tools icon** at the bottom of the chat input
+3. Click it — you should see "figma" listed as a connected tool
 
-- **Screenshots work better than you'd expect.** Upload a screenshot of your design and ask the AI to check for widows, orphans, and line breaks — it can often catch these visually.
+If you don't see it, double-check that:
+- The Figma desktop app is open and running
+- Dev Mode MCP Server is toggled on in Preferences
+- The config file was saved correctly (valid JSON — no missing commas or brackets)
 
-- **Start a new conversation for each project.** AI tools have memory limits. A fresh conversation for each QA session keeps things clean.
+---
+
+## Step 5: Open your Figma file and run your first QA
+
+1. Open the Figma file you want to review in the **Figma desktop app**
+2. Switch to **Dev Mode** (toggle in top right)
+3. Open **Claude Desktop**
+4. Paste one of the prompts from the `/prompts` folder
+5. Tell Claude which frame or page to review — use the exact frame name from your Figma file
+
+Example:
+> *"Review the frame called 'Homepage – Hero' for copy errors using the copy QA checklist."*
+
+Claude will use the Figma MCP to pull the actual text, colors, and specs from that frame and run through the checklist.
+
+---
+
+## What Claude can access via the Figma MCP
+
+| Data type | What Claude can verify |
+|-----------|----------------------|
+| Text content | Copy errors, typos, grammar, consistency |
+| Color fills | Exact hex values — verify against brand guide |
+| Typography | Font family, weight, size, line height |
+| Component names | Whether correct components from the design system are used |
+| Frame dimensions | Spec accuracy for print or digital |
+| Spacing values | Padding, margins, gap values |
+| Layer structure | Hierarchy, naming, organization |
+
+---
+
+## Giving Claude your brand guide
+
+For color, typography, and brand consistency checks, paste the relevant sections of your brand guide into the conversation before running a QA prompt. Example:
+
+> *"Here are our brand colors: Primary blue #1A3C8F, Secondary grey #6B7280, White #FFFFFF. Here are our approved fonts: Headlines — Canela Display Bold, Body — Inter Regular and Medium. Now review the 'Email Header' frame for brand compliance."*
+
+Claude will then compare what it finds in Figma against what you've provided.
 
 ---
 
 ## Troubleshooting
 
-**"The AI didn't follow the checklist structure."**
-Make sure you're pasting the full prompt before your content, not after. The prompt primes the AI on what to do.
+**"Claude doesn't seem to have access to my Figma file."**
+Make sure the Figma desktop app is open, Dev Mode is active on the file you want to review, and the MCP server toggle is on in Preferences. Claude can only see files that are open in Dev Mode.
 
-**"The AI missed obvious errors."**
-Try being more explicit: after pasting the prompt, add "Please be thorough and flag every instance, even minor ones."
+**"I get a connection error in Claude."**
+Restart both Figma desktop and Claude Desktop. The MCP server occasionally needs a fresh start.
 
-**"The AI gave me a wall of text that's hard to parse."**
-Add to the end of your prompt: "Format your response as a numbered list with the checklist item, your finding, and a suggested fix."
+**"My config file has an error."**
+JSON is strict about formatting. Common mistakes: a trailing comma after the last item, or missing a closing bracket. Paste your config into https://jsonlint.com to check for errors.
+
+**"I don't see Dev Mode in Figma."**
+Dev Mode requires a paid Figma seat. If you're on the free plan, you won't have access to it.
 
 ---
 
-*Questions or issues? Open a GitHub issue.*
+## One-time setup. Permanent workflow improvement.
+
+Once this is configured, it stays connected. Every time you open Figma desktop and Claude Desktop, the MCP is active. Running QA becomes: open file, open Claude, paste prompt, get results.

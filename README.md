@@ -1,6 +1,6 @@
-# Design QA Toolkit
+# Figma QA Toolkit
 
-**A practical quality assurance system for graphic designers — with AI prompts built in.**
+**A quality assurance system for graphic designers working in Figma — powered by Claude AI and the Figma MCP.**
 
 ---
 
@@ -8,13 +8,23 @@
 
 I'm not a designer. But I'm engaged to one.
 
-Watching her work, I noticed the QA process — catching copy errors, verifying brand consistency, checking layouts before handoff — was one of the most time-consuming and mentally draining parts of the job. Not because it's hard. Because it's meticulous. The kind of careful, methodical checking that eats focus and energy that could go toward actual creative work.
+Watching her work, I noticed QA was one of the most time-consuming parts of the job — checking every color code, font spec, spacing value, copy error, and component before anything goes to a client. Meticulous, important work that eats focus and time that could go toward actual creative output.
 
-So I built this. A structured QA system she could run through at the end of any project — with AI doing the mechanical checking so the human creative perspective could focus on the things AI genuinely can't do.
+So I built this. A Figma-connected QA system where Claude has direct access to the actual file data — not screenshots, not PDFs — so it can verify exact hex values, font specifications, component names, and spacing against a structured checklist.
 
-It's not trying to replace design judgment. It's trying to eliminate the boring checklist work so the judgment part gets more room.
+Screenshots and PDFs aren't good enough for real QA. If you can't tell whether a color is `#2B3A4F` or `#2B3B50` from a visual, neither can an AI. This toolkit is built around the Figma MCP, which gives Claude structured file data so the QA is actually thorough.
 
-I'm sharing it publicly because I figured other designers might find it useful. Take it, adapt it, make it yours.
+I'm sharing it publicly because other designers might find it useful. Take it, adapt it, make it yours.
+
+---
+
+## What's required
+
+- **Figma** (desktop app, paid plan — Dev Mode is required for MCP)
+- **Claude Desktop** (free download) with the Figma MCP connected
+- About 30 minutes to set up — once. Then it's part of your workflow.
+
+Setup guide: [`SETUP.md`](SETUP.md)
 
 ---
 
@@ -22,55 +32,51 @@ I'm sharing it publicly because I figured other designers might find it useful. 
 
 | File | What it does |
 |------|-------------|
-| `SETUP.md` | How to get started, from zero — tools, accounts, first steps |
-| `PLATFORM-CONNECTIONS.md` | How to connect Figma and Adobe directly to Claude — no more manual exports |
+| `SETUP.md` | Full Figma MCP setup — step by step, no technical background assumed |
 | `checklists/copy-qa.md` | Line-by-line copy review checklist |
 | `checklists/design-qa.md` | Full design QA — typography, layout, brand, photography |
-| `checklists/creative-director-review.md` | Strategic review layer — brief alignment, client experience, creative standards |
+| `checklists/creative-director-review.md` | Strategic review — brief alignment, client experience, creative standards |
 | `checklists/final-handoff.md` | Pre-delivery checklist — files, exports, links, naming |
-| `prompts/copy-review-prompt.md` | Drop into ChatGPT or Claude to automate copy QA |
-| `prompts/design-review-prompt.md` | Prompt for AI-assisted design review |
-| `prompts/brief-analysis-prompt.md` | Prompt to analyze a brief before starting a project |
+| `prompts/copy-review-prompt.md` | Claude prompt for copy QA via Figma MCP |
+| `prompts/design-spec-prompt.md` | Claude prompt to pull and verify design specs from Figma |
+| `prompts/component-audit-prompt.md` | Claude prompt to audit component consistency across a file |
+| `prompts/brief-analysis-prompt.md` | Claude prompt to analyze a brief before starting a project |
 
 ---
 
 ## How it works
 
-**The AI handles the mechanical stuff.** Typos, grammar, consistency checks, formatting rules — these are tasks AI is genuinely good at. Use the prompts in the `/prompts` folder with ChatGPT, Claude, or any AI tool you already have access to.
+**Claude connects directly to your Figma file** via the Figma MCP (Model Context Protocol). This means:
 
-**You handle the judgment calls.** Creative direction, brand feel, whether something *works* — the checklists flag these explicitly so you know what needs your eye, not the machine's.
+- Claude reads the actual text content of your frames — not a screenshot of it
+- Claude pulls exact hex color values — not an interpretation of what the color looks like
+- Claude sees font family, weight, size, and line height — not a guess based on visuals
+- Claude reads component names — so it can tell you if something is the right component or a manual recreation
 
-Each checklist item is marked:
-- ✅ **AI can check this** — paste into a prompt and get a reliable answer
-- 👁️ **Needs human judgment** — AI can assist but the call is yours
-- 🔍 **Context-dependent** — depends on the client, brand, or brief
+**You run the prompts inside Claude Desktop** with your Figma file connected. Claude uses the Figma MCP tools to pull the data, then runs through the checklist systematically and flags everything that needs attention.
+
+**The checklists tell you what needs human judgment.** Not everything can be automated — creative decisions, brand feel, whether something *works* — those are marked clearly so you know what needs your eye.
 
 ---
 
-## Who this is for
+## What this is not
 
-Freelance designers and in-house creatives who:
-- Work across multiple clients or projects simultaneously
-- Want to catch errors before a client does
-- Are curious about AI but haven't found a workflow that actually fits design work
-- Have a creative director review layer they want to systematize
+This is not a tool that designs for you or replaces design judgment. It's a QA layer that catches spec errors, copy mistakes, and consistency issues before a client does — the meticulous checking work that's important but doesn't require creative talent to execute.
 
-This is **not** a tool to automate design. It's a tool to protect your work and your reputation before it ships.
+The design is entirely yours. Claude is checking the math.
 
 ---
 
 ## A note on AI and design
 
-There's a legitimate conversation happening in design communities about AI and job displacement. This toolkit isn't entering that debate. It's a QA tool — the design is entirely yours. The AI is checking punctuation and color codes, not making creative decisions.
-
-The prompts are written to be run by *you*, on *your work*, to catch *your mistakes* before a client sees them. That's it.
+There's a real conversation happening about AI and design jobs. This toolkit isn't part of that debate. It's a spell-checker for design files — except instead of just catching typos, it catches wrong hex values, mismatched fonts, and broken component usage.
 
 ---
 
 ## Contributing
 
-Found a checklist item that should be in here? A prompt that works better? Open a PR or file an issue. This is meant to evolve.
+Found something missing? A prompt that works better? Open a PR or file an issue.
 
 ---
 
-*Built by a non-designer, for a designer. Make it useful.*
+*Built by a non-designer, for a designer. Figma-specific, MCP-powered, actually useful.*
