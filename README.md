@@ -6,15 +6,11 @@
 
 ## Why this exists
 
-I'm not a designer. But I'm engaged to one.
+I'm not a designer. My fiancée is. She mentioned that QA was one of the most time-consuming parts of her job — going through every color code, font spec, spacing value, and copy error before anything goes to a client. So I looked into whether AI could help with that.
 
-Watching her work, I noticed QA was one of the most time-consuming parts of the job — checking every color code, font spec, spacing value, copy error, and component before anything goes to a client. Meticulous, important work that eats focus and time that could go toward actual creative output.
+Turns out it can — but only if it has access to the actual file data, not a screenshot of it. If you can't tell whether a color is `#2B3A4F` or `#2B3B50` from a visual, neither can an AI. This toolkit connects Claude directly to your Figma files via the Figma MCP so it's working from real data: exact hex values, font specs, component names, spacing values.
 
-So I built this. A Figma-connected QA system where Claude has direct access to the actual file data — not screenshots, not PDFs — so it can verify exact hex values, font specifications, component names, and spacing against a structured checklist.
-
-Screenshots and PDFs aren't good enough for real QA. If you can't tell whether a color is `#2B3A4F` or `#2B3B50` from a visual, neither can an AI. This toolkit is built around the Figma MCP, which gives Claude structured file data so the QA is actually thorough.
-
-I'm sharing it publicly because other designers might find it useful. Take it, adapt it, make it yours.
+I'm sharing it because other designers might find it useful. Not my area of expertise — take it, adapt it, make it better.
 
 ---
 
