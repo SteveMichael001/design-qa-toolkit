@@ -6,11 +6,11 @@
 
 ## Why this exists
 
-I'm not a designer. My fiancée is. She mentioned that QA was one of the most time-consuming parts of her job — going through every color code, font spec, spacing value, and copy error before anything goes to a client. So I looked into whether AI could help with that.
+My fiancée is a graphic designer. She told me design QA is a pain — verifying every color code, font, spacing value, and copy error before anything goes to a client takes forever and it's not the interesting part of the job.
 
-Turns out it can — but only if it has access to the actual file data, not a screenshot of it. If you can't tell whether a color is `#2B3A4F` or `#2B3B50` from a visual, neither can an AI. This toolkit connects Claude directly to your Figma files via the Figma MCP so it's working from real data: exact hex values, font specs, component names, spacing values.
+So I built this. It connects Claude to your Figma files directly so it can check actual file data — not screenshots. Screenshots don't tell you if a hex value is wrong. The Figma MCP does.
 
-I'm sharing it because other designers might find it useful. Not my area of expertise — take it, adapt it, make it better.
+Not a designer. Sharing it anyway.
 
 ---
 
